@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/login">Login</router-link>|
       <router-link to="/signup">SignUp</router-link>|
-      <router-link to="/image">upload Image</router-link>
+      <router-link to="/landing">LandingPage</router-link>
     </div>
     <router-view />
   </div>

@@ -22,8 +22,8 @@ const routes = [{
     //     import(/* webpackChunkName: "about" */ "../views/signup.vue")
   },
   {
-    path: "/image",
-    name: "Image",
+    path: "/landing",
+    name: "Landing",
     component: imagePage
   }
 ];

@@ -1,37 +1,49 @@
+<!-- @format -->
+
 <template>
-  <div>
-    <!-- Styled -->
-    <b-form @submit="onSubmit">
-      <b-form-file
-        v-model="file"
-        :state="Boolean(file)"
-        placeholder="Choose a file or drop it here..."
-        drop-placeholder="Drop file here..."
-      ></b-form-file>
-      <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
-
-      <b-button type="submit" variant="primary">Submit</b-button>
-    </b-form>
-
-    <!-- Plain mode -->
-    <!-- <b-form-file v-model="file2" class="mt-3" plain></b-form-file>
-    <div class="mt-3">Selected file: {{ file2 ? file2.name : '' }}</div>-->
-  </div>
+  <b-container>
+    <b-row class="rowClass" v-for="item in userData" :key="item.name">
+      <b-col class="column">{{ item.name }}</b-col>
+      <b-col class="column">{{ item.email }}</b-col>
+      <b-col class="column">{{ item.mobileNumber }}</b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      file: null,
-      file2: null
+      userData: [],
     };
   },
   methods: {
-    async onSubmit(evt) {
-      evt.preventDefault();
-      console.log("fff", this.file);
-    }
-  }
+    async getAllUser() {
+      let allUser = await this.$service.getDataWithoutParams("/user/getAll");
+      if (allUser) {
+        this.userData = allUser.data.data.result.list;
+      } else {
+        this.userData = [];
+      }
+    },
+  },
+  beforeMount() {
+    this.getAllUser();
+  },
 };
 </script>
+<style>
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 50px; /* Should be removed. Only for demonstration */
+  background-color: lightgreen;
+}
+.rowClass {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+</style>
